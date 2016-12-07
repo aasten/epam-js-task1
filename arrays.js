@@ -86,7 +86,7 @@ function sortMerge(arr) {
   left = sortMerge(left);
   right = sortMerge(right);
 
-  return merge(left, right)
+  return merge(left, right);
 }
 
 console.log('Merge sort');
@@ -187,17 +187,75 @@ function createTwoDimRandArr() {
 
 var twoDimRandom = createTwoDimRandArr();
 console.log(twoDimRandom);
-console.log(getMaxMinAvg(twoDimRandom));
+console.log('Min,max,avg:' + getMaxMinAvg(twoDimRandom));
+
+function leftTriangle(n) {
+  var arr = new Array(n);
+  // arr.fill(new Array(n));
+  // console.log(arr);
+  var changeDir = false;
+  var s = n;
+  for(var i = 0; i < n; i++) {
+    arr[i] = new Array(n);
+    arr[i].fill(0);
+    var jTo = Math.min(i,n-1-i);
+    for(var j = 0; j <= jTo; j++) {
+      arr[i][j] = 1;
+    }
+  }
+  return arr;
+}
+
+console.log(leftTriangle(10));
 
 function hourglass(n) {
   var arr = new Array(n);
-  arr.fill(new Array(n));
-  console.log(arr);
+  // arr.fill(new Array(n));
+  // console.log(arr);
+  var changeDir = false;
+  var s = n;
   for(var i = 0; i < n; i++) {
-    for(var j = 0; j < n; j++) {
-
+    arr[i] = new Array(n);
+    arr[i].fill(0);
+    var jFrom = Math.min(i,n-1-i);
+    var jTo = Math.max(i,n-1-i)
+    for(var j = jFrom; j <= jTo; j++) {
+      arr[i][j] = 1;
     }
+  }
+  return arr;
+}
+
+console.log(hourglass(10));
+
+
+function objSort(arr, order) {
+  function compareFunAsc(a, b) {
+    return Object.keys(a).length - Object.keys(b).length;
+  }
+  function compareFunDesc(a, b) {
+    return Object.keys(b).length - Object.keys(a).length;
+  }
+
+  if(order=='asc') {
+    return arr.sort(compareFunAsc);
+  } else if (order == 'desc') {
+    return arr.sort(compareFunDesc);
+  } else {
+    console.log('unknown order given: ' + order);
+    return arr;
   }
 }
 
-console.log(hourglass(5));
+{
+var obj1 = { a: 2, c: 3, d: 3};
+var obj2 = { a: 1 };
+var obj3 = { a: 2, c: 3};
+var arOfObj = [obj1, obj2, obj3];
+// Calling method
+var res = objSort(arOfObj, 'asc');
+console.log(res);
+var res = objSort(arOfObj, 'desc');
+console.log(res);
+
+}
