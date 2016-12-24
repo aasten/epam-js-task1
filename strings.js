@@ -27,10 +27,12 @@ function isWord(str) {
 }
 
 function isPascalCase(str) {
-  return str.search('_') >= 0 && isWord(str);
+  return isWord(str) // does not contains space symbols, so it is a whole word
+    && str.search(/[^_]/) >= 0 // contains any symbols except _
+    && str.search('_') >= 0; // and contains at least one _ symbol separating letters
 }
 
-['Hello_world','HelloWorld','helloworld', 'Hello world'].forEach(function(chk) {console.log('"' + chk +'" is pascal case:' + isPascalCase(chk))})
+['Hello_world','HelloWorld','helloworld', 'Hello world', '__'].forEach(function(chk) {console.log('"' + chk +'" is pascal case:' + isPascalCase(chk))})
 
 
 function isCamelCase(str) {
